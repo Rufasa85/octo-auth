@@ -1,5 +1,6 @@
 const express = require('express');
 const sequelize = require("./config/connection")
+
 // Sets up the Express App
 // =============================================================
 const app = express();
@@ -22,13 +23,17 @@ app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
 const session = require("express-session")
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
 app.use(session({
-    secret:"tacocat",
+    secret:process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
     cookie:{
         maxAge:1000*60*60*2
-    }
+    },
+    store: new SequelizeStore({
+        db: sequelize,
+      })
 }))
 
 app.use('/',allRoutes);
