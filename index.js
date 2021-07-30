@@ -21,6 +21,16 @@ const hbs = exphbs.create({});
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
+const session = require("express-session")
+app.use(session({
+    secret:"tacocat",
+    resave: false,
+    saveUninitialized: true,
+    cookie:{
+        maxAge:1000*60*60*2
+    }
+}))
+
 app.use('/',allRoutes);
 
 sequelize.sync({ force: false }).then(function() {

@@ -13,12 +13,19 @@ router.get("/",(req,res)=>{
     })
 })
 router.post("/",(req,res)=>{
-    db.Lunch.create(req.body).then(newLunch=>{
+    if(req.session.user){
+    db.Lunch.create({
+        description:req.body.description,
+        UserId:req.session.user.id
+    }).then(newLunch=>{
         res.json(newLunch);
     }).catch(err=>{
         console.log(err);
         res.status(500).json(err);
     })
+} else {
+    res.status(403).send("not logged in")
+}
 })
 router.get("/:id",(req,res)=>{
     db.Lunch.findByPk(req.params.id,{
