@@ -1,0 +1,2 @@
+DROP DATABASE IF EXISTS lunch_db;
+CREATE DATABASE lunch_db;
