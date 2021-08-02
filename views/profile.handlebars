@@ -1,0 +1,15 @@
+<h1>{{username}} Profile!</h1>
+<h3>My Lunches</h3>
+<ul>
+{{#each Lunches}}
+    <li>{{description}}</li>
+{{/each}}
+</ul>
+
+<h3>Add Lunch</h3>
+<form id="addLunch">
+    <input type="text" name="description" id="lunchDescription" placeholder="description">
+    <button>Add lunch!</button>
+</form>
+
+<script src="js/addLunch.js"></script>
